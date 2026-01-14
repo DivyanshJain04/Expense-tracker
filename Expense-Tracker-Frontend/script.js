@@ -1,3 +1,6 @@
+// API Base URL - loaded from config.js
+// Make sure config.js is loaded before this script
+
 const balance = document.getElementById("balance");
 const income = document.getElementById("income");
 const expense = document.getElementById("expense");
@@ -40,8 +43,7 @@ function addTransactionDOM(transaction) {
   tr.innerHTML = `
     <td>${transaction.date}</td>
     <td>${transaction.text}</td>
-    <td class="amount ${
-      transaction.amount < 0 ? "expense" : ""
+    <td class="amount ${transaction.amount < 0 ? "expense" : ""
     }">$${transaction.amount.toFixed(2)}</td>
     <td><button onclick="removeTransaction(${transaction.id})">X</button></td>
   `;
@@ -49,7 +51,7 @@ function addTransactionDOM(transaction) {
 }
 
 function removeTransaction(id) {
-  fetch(`http://localhost:8080/ExpTrack/transactions/${username}/${id}`, {
+  fetch(`${API_BASE_URL}/ExpTrack/transactions/${username}/${id}`, {
     method: "DELETE",
   })
     .then(() => {
@@ -80,7 +82,7 @@ addTransaction.addEventListener("click", () => {
     date: new Date().toISOString().split("T")[0],
   };
 
-  fetch(`http://localhost:8080/ExpTrack/transactions/${username}`, {
+  fetch(`${API_BASE_URL}/ExpTrack/transactions/${username}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -98,7 +100,7 @@ addTransaction.addEventListener("click", () => {
 });
 
 function init() {
-  fetch(`http://localhost:8080/ExpTrack/transactions/${username}`)
+  fetch(`${API_BASE_URL}/ExpTrack/transactions/${username}`)
     .then((res) => res.json())
     .then((data) => {
       transactions = data;

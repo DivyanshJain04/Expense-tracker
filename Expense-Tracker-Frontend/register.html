@@ -73,6 +73,7 @@
     </div>
   </div>
 
+  <script src="config.js"></script>
   <script>
     document.getElementById('register-btn').addEventListener('click', async (event) => {
       event.preventDefault();
@@ -94,7 +95,7 @@
       const user = { username, email, password };
 
       try {
-        const response = await fetch("http://localhost:8080/ExpTrack/register", {
+        const response = await fetch(`${API_BASE_URL}/ExpTrack/register`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
